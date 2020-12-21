@@ -21,11 +21,11 @@
        @csrf
         <div class="form-group">
           <label for="exampleInputEmail1">Address</label>
-          <input type="text" id="title" name="address" class="form-control" required="">
+          <input type="text" id="title" name="address" class="form-control">
         </div>
         <div class="form-group">
           <label for="exampleInputEmail1">User_ID</label>
-          <input type="text" id="title" name="user_id" class="form-control" required="">
+          <input type="text" id="title" name="user_id" class="form-control">
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>
       </form>
