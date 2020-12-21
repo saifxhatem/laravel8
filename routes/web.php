@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AddressesController;
+use App\Http\Controllers\RegistrationController;
+
 
 
 
@@ -24,3 +26,6 @@ Route::get('/', function () {
 
 Route::get('addresses', [AddressesController::class, 'index']);
 Route::post('store-data', [AddressesController::class, 'store']);
+
+Route::get('registration', [RegistrationController::class, 'index']);
+Route::post('store-data-registration', [RegistrationController::class, 'store']);
