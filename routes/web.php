@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AddressesController;
 use App\Http\Controllers\RegistrationController;
+use App\Http\Controllers\RetrieveAddressController;
 
 
 
@@ -29,3 +30,6 @@ Route::post('store-data', [AddressesController::class, 'store']);
 
 Route::get('registration', [RegistrationController::class, 'index']);
 Route::post('store-data-registration', [RegistrationController::class, 'store']);
+
+Route::get('get-address', [RetrieveAddressController::class, 'index']);
+Route::post('do-get-address', [RetrieveAddressController::class, 'get_address']);
