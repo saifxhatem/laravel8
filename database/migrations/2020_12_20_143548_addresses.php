@@ -15,7 +15,8 @@ class Addresses extends Migration
     {
         Schema::create('customer_addresses', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('user_id')->biginteger();
+            //$table->bigInteger('user_id')->unsigned();
+            $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');
             $table->string('address');
             //$table->rememberToken(); I think this should only be in users table
