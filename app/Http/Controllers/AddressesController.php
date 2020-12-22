@@ -38,10 +38,10 @@ class AddressesController extends Controller
           'user_id' => 'required|exists:App\Models\User,id',
         ]);
         //validation complete; exec query
-        $user_object = User::find($request->user_id); //this query is correct
+        //$user_object = User::find($request->user_id); //this query is correct
 
         //$address_object = Addresses::where('user_id', $user_object->id)->pluck('address');
-        $address_object = Addresses::where('user_id', $user_object->id)->get();
+        $address_object = Addresses::where('user_id', $request->user_id)->get();
 
 
         return view('display_addresses', ['addresses' => $address_object]);
