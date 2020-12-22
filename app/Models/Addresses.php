@@ -9,7 +9,7 @@ class Addresses extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'user_id', 'governorate', 'area'
+        'user_id', 'governorate', 'area', 'address'
     ];
     protected $table = 'customer_addresses'; //this is needed to override default table name
 
