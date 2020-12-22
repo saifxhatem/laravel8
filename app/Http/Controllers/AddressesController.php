@@ -24,9 +24,6 @@ class AddressesController extends Controller
         return redirect('addresses')
             ->with('status', 'Insertion Successful');
     }
-
-    //today's changes
-
     public function index_get()
     {
         return view('get-address');
@@ -38,9 +35,7 @@ class AddressesController extends Controller
           'user_id' => 'required|exists:App\Models\User,id',
         ]);
         //validation complete; exec query
-        //$user_object = User::find($request->user_id); //this query is correct
 
-        //$address_object = Addresses::where('user_id', $user_object->id)->pluck('address');
         $address_object = Addresses::where('user_id', $request->user_id)->get();
 
 
