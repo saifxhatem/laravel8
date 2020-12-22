@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AddressesController;
+use App\Http\Controllers\RegistrationController;
+
 
 
 
@@ -20,7 +22,14 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+//registration controller
 
+Route::get('registration', [RegistrationController::class, 'index']);
+Route::post('store-data-registration', [RegistrationController::class, 'store']);
 
-Route::get('addresses', [AddressesController::class, 'index']);
+//address controller
+
+Route::get('addresses', [AddressesController::class, 'index_insert']);
 Route::post('store-data', [AddressesController::class, 'store']);
+Route::get('get-address', [AddressesController::class, 'index_get']);
+Route::post('do-get-address', [AddressesController::class, 'get_address']);
