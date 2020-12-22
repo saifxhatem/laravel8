@@ -4,13 +4,15 @@ use Illuminate\Http\Request;
 use App\Models\Addresses;
 use App\Models\User;
 
+
 use Exception;
 class AddressesController extends Controller
 
 {
-    public function index_insert()
+    public function index()
     {
-        return view('addresses');
+        $users = User::all();
+        return view('insert_addresses', compact('users'));
     }
     public function store(Request $request)
     {
@@ -21,16 +23,17 @@ class AddressesController extends Controller
         $addresses->address = $request->address;
         $addresses->user_id = $request->user_id;
         $addresses->save();
-        return redirect('addresses')
+        return redirect('insert-addresses')
             ->with('status', 'Insertion Successful');
     }
     public function index_get()
     {
         return view('get-address');
     }
-    public function get_address(Request $request)
+    public function fetch_address(Request $request)
     {
         //validate our input
+        //return response($request, 200);
         $validated = $request->validate([
           'user_id' => 'required|exists:App\Models\User,id',
         ]);
@@ -42,4 +45,6 @@ class AddressesController extends Controller
         return view('display_addresses', ['addresses' => $address_object]);
 
     }
+
+
 }

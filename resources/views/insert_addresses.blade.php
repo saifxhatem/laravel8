@@ -22,10 +22,10 @@
             </ul>
          </div>
       @endif
-      
+
   <div class="card">
     <div class="card-header text-center font-weight-bold">
-      Insert Address and UID
+      Choose your name to insert your address
     </div>
     <div class="card-body">
       <form name="add-blog-post-form" id="add-blog-post-form" method="post" action="{{url('store-data')}}">
@@ -35,9 +35,13 @@
           <input type="text" id="title" name="address" class="form-control">
         </div>
         <div class="form-group">
-          <label for="exampleInputEmail1">User_ID</label>
-          <input type="text" id="title" name="user_id" class="form-control">
-        </div>
+      <label for="name">Users</label>
+      <select name= "user_id" class="form-control">
+        @foreach($users as $user)
+          <option value="{{$user->id}}">{{$user->id}} - {{$user->name}}</option>
+        @endforeach
+      </select>
+    </div>
         <button type="submit" class="btn btn-primary">Submit</button>
       </form>
     </div>
