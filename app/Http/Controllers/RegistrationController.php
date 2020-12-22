@@ -14,13 +14,11 @@ class RegistrationController extends Controller
     }
     public function store(Request $request)
     {
-        //validate our input
         $validated = $request->validate([
           'name' => 'required|max:255',
           'password' => 'required|max:255',
           'email' => 'required|max:255|unique:App\Models\User,email',
         ]);
-        //validation complete; exec query
         $user = new User;
         $user->name = $request->name;
         $user->password = $request->password;

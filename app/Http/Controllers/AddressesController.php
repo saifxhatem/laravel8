@@ -16,9 +16,9 @@ class AddressesController extends Controller
     }
     public function store(Request $request)
     {
-        //validate our input
+
         $validated = $request->validate(['address' => 'required||max:255', 'user_id' => 'required|numeric|exists:App\Models\User,id', ]);
-        //validation complete; exec query
+
         $addresses = new Addresses;
         $addresses->address = $request->address;
         $addresses->user_id = $request->user_id;
@@ -32,12 +32,11 @@ class AddressesController extends Controller
     }
     public function fetch_address(Request $request)
     {
-        //validate our input
-        //return response($request, 200);
+
         $validated = $request->validate([
           'user_id' => 'required|exists:App\Models\User,id',
         ]);
-        //validation complete; exec query
+        
 
         $address_object = Addresses::where('user_id', $request->user_id)->get();
 
