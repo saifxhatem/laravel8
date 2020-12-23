@@ -13,12 +13,8 @@ class TopGovController extends Controller
 {
     public function index()
     {
-      //$governorates = Governorate::has('areas.addresses')->sortby()->get();
       $governorates = Governorate::withCount('addresses')->orderByDesc('addresses_count')->take(3)->get();
-
-      //return response()->json($governorates);
       return view('top_gov', compact('governorates'));
-      //return response($addresses, 200);
     }
 
 }
