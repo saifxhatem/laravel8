@@ -26,4 +26,4 @@ Route::post('fetch-address', [AddressesController::class, 'fetch_address']);
 
 Route::get('list-users', [UserController::class, 'index']);
 
-Route::get('top-gov', [TopGovController::class, 'index']);
+Route::get('top-gov', [TopGovController::class, 'list_top_gov']);

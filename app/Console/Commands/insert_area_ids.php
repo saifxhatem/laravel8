@@ -1,11 +1,10 @@
 <?php
-
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 use App\Models\Addresses;
 use Illuminate\Support\Facades\DB;
-
+use Exception;
 
 class insert_area_ids extends Command
 {
@@ -41,11 +40,25 @@ class insert_area_ids extends Command
     public function handle()
     {
         //$this->info($this->argument('id'));
-        foreach (Addresses::all() as $address) {
+        /*foreach (Addresses::where('area_id', null) as $address) {
           $address->area_id = rand(1,30);
           $address->save();
         }
         echo "Successfully inserted ids\n";
-        return 0;
+        return 0;*/
+        try
+        {
+            foreach (Addresses::where('area_id', null)->get() as $address)
+            {
+                $address->area_id = rand(1, 30);
+                $address->save();
+            }
+            echo "Successfully inserted ids\n";
+            return 0;
+        }
+        catch(Exception $e)
+        {
+            $this->info($e->getMessage());
+        }
     }
 }

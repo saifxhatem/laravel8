@@ -11,7 +11,7 @@ use Exception;
 class TopGovController extends Controller
 
 {
-    public function index()
+    public function list_top_gov()
     {
       $governorates = Governorate::withCount('addresses')->orderByDesc('addresses_count')->take(3)->get();
       return view('top_gov', compact('governorates'));
