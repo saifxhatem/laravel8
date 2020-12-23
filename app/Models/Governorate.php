@@ -14,6 +14,10 @@ class Governorate extends Model
     //relationships
     public function areas()
     {
-      return $this->hasMany(Areas::class);
+      return $this->hasMany(Area::class);
+    }
+    public function addresses()
+    {
+      return $this->hasManyThrough(Addresses::class, Area::class);
     }
 }

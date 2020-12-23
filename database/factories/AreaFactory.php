@@ -23,7 +23,7 @@ class AreaFactory extends Factory
     public function definition()
     {
         return [
-            'name' => $this->faker->state,
+            'name' => $this->faker->city,
             'governorate_id' => rand(1,30),
         ];
     }
