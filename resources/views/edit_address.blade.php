@@ -34,7 +34,7 @@
           <label for="exampleInputEmail1">Address</label>
           {{$addresses->id}}
           <input type="text" id="title" value = "{{$addresses->address}}" name="address" class="form-control">
-            <input type="hidden" id="custId" name="address_id" value="{{$addresses->id}}">
+            <input type="hidden" id="address_id" name="address_id" value="{{$addresses->id}}">
         </div>
         <div class="form-group">
     <label for="name">Area</label>
