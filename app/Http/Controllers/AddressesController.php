@@ -3,6 +3,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Addresses;
 use App\Models\User;
+use App\Models\Area;
 
 
 use Exception;
@@ -36,7 +37,7 @@ class AddressesController extends Controller
         $validated = $request->validate([
           'user_id' => 'required|exists:App\Models\User,id',
         ]);
-        
+
 
         $address_object = Addresses::where('user_id', $request->user_id)->get();
 
@@ -44,6 +45,27 @@ class AddressesController extends Controller
         return view('display_addresses', ['addresses' => $address_object]);
 
     }
+   public function list_all_addresses()
+   {
+     $addresses = Addresses::all();
+     return view ('display_addresses_dropdown', compact('addresses'));
+   }
+   public function edit_address(Request $request)
+   {
+     $addresses = Addresses::where('id', $request->address_id)->first();
+     $areas = Area::all();
+     $current_area = Area::where('id', $addresses->area_id)->first();
+     //return response($current_area);
+     return view('edit_address', compact('addresses', 'areas', 'current_area'));
 
+   }
+   public function update_address(Request $request)
+   {
+     $new_address = Addresses::where('id', $request->address_id)->first();
+     $new_address->address = $request->address;
+     $new_address->area_id = $request->area_id;
+     $new_address->save();
+     return response("Address updated successfully!", 200);
+   }
 
 }
