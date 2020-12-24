@@ -61,10 +61,10 @@ class AddressesController extends Controller
    }
    public function update_address(Request $request)
    {
-     $new_address = Addresses::where('id', $request->address_id)->first();
-     $new_address->address = $request->address;
-     $new_address->area_id = $request->area_id;
-     $new_address->save();
+     $updated_address = Addresses::where('id', $request->address_id)->first();
+     $updated_address->address = $request->address;
+     $updated_address->area_id = $request->area_id;
+     $updated_address->update();
      return response("Address updated successfully!", 200);
    }
 
