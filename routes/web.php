@@ -28,6 +28,8 @@ Route::post('edit-address', [AddressesController::class, 'edit_address']);
 Route::post('update-address', [AddressesController::class, 'update_address']);
 
 
-Route::get('list-users', [UserController::class, 'index']);
+Route::get('users', [UserController::class, 'index']);
+Route::get('list-users', [UserController::class, 'get_users']);
+
 
 Route::get('top-gov', [TopGovController::class, 'list_top_gov']);
