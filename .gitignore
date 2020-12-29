@@ -2,6 +2,8 @@
 /random_snippets
 /resources/views/welcome.blade.phptmp
 /resources/views/welcome.blade.phpbk
+/resources/views/ajaxRequest.blade.php
+/app/Http/Controllers/AjaxController.php
 /app/Models/Addresses.phpbk
 /database/migrations/2020_12_22_142353_create_addresses_table.phpbk
 /public/hot
