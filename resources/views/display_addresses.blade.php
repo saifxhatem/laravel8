@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Insert Address Form</title>
+    <title>List all addresses</title>
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
@@ -23,19 +23,10 @@
          </div>
       @endif
 
-  <div class="card">
-    <div class="card-header text-center font-weight-bold">
-      User's Addresses: <br>
-      @foreach ($addresses as $address)
-        <tr>
-        <td>{{ $address->address }}<br></td>
-
-        </tr>
-      @endforeach
-    </div>
-
-    </div>
+  <div id= "app">
+    <display-addresses> </display-addresses>
   </div>
 </div>
+<script src = "{{ mix('js/app.js') }}"> </script>
 </body>
 </html>

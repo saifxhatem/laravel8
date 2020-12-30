@@ -12,8 +12,11 @@ class AddressesController extends Controller
 {
     public function index()
     {
-        $users = User::all();
-        return view('insert_addresses', compact('users'));
+        //$users = User::all();
+        //$pageTitle = "Insert Addresses";
+        //return view('insert_addresses', compact('users'));
+        return view ('display_addresses');
+
     }
     public function store(Request $request)
     {
@@ -48,7 +51,8 @@ class AddressesController extends Controller
    public function list_all_addresses()
    {
      $addresses = Addresses::all();
-     return view ('display_addresses_dropdown', compact('addresses'));
+     //return view ('display_addresses_dropdown', compact('addresses'));
+     return $addresses;
    }
    public function edit_address(Request $request)
    {
