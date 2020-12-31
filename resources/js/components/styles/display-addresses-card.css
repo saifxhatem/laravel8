@@ -1,7 +1,7 @@
-.card {
+#card-styled {
   font-family: "Times New Roman", Times, serif;
 }
 
-li {
-  color:blue;
+#li-styled {
+  color:purple;
 }

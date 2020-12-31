@@ -4,7 +4,7 @@
       All users: <br />
 
       <ul id="example-1">
-        <li v-for="user in users" :key="user.name">
+        <li v-for="(user, index) in users" :key="index">
           {{ user.name }}
         </li>
       </ul>
@@ -31,7 +31,10 @@
           axios.get('/list-users')
           .then((response) => {
             console.log(response.data);
-            this.users = response.data;
+            if (response.data)
+              this.users = response.data;
+            else
+              console.log("Received bad data");
           })
           .catch(function (error) {
             console.log(error);

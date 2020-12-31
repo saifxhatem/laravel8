@@ -1,5 +1,5 @@
 <template>
-  <div class="card">
+  <div class="card" id = "card-styled">
     <div class="card-header text-center font-weight-bold">
       <vue-header :title="this.title"/>
 
@@ -7,8 +7,8 @@
       <br />
 
       <ul id="example-1">
-        <li v-for="(address,index) in addresses" :key="index">
-          {{ address.address }} <alert-button :address="address.address"/>
+        <li id = "li-styled" v-for="(address,index) in addresses" :key="index">
+          {{ address.address }} <alert-button :alert_text="address.address" :onClickButton="alertAddress" button_title="Alert Address"/>
         </li>
       </ul>
     </div>
@@ -35,12 +35,18 @@
           axios.get('/list-all-addresses')
           .then((response) => {
             //check existence of data before you assign
-            this.addresses = response.data;
+            if (response.data)
+              this.addresses = response.data;
+            else
+              console.log("Retrieved bad data.")
 
           })
           .catch(function (error) {
             console.log(error);
           });
+        },
+        alertAddress: function(address) {
+          alert('You chose address: ' + address);
         }
       }
     }

@@ -12,17 +12,12 @@ class AddressesController extends Controller
 {
     public function index()
     {
-        //$users = User::all();
-        //$pageTitle = "Insert Addresses";
-        //return view('insert_addresses', compact('users'));
         return view ('display_addresses');
-
     }
     public function store(Request $request)
     {
 
         $validated = $request->validate(['address' => 'required||max:255', 'user_id' => 'required|numeric|exists:App\Models\User,id', ]);
-
         $addresses = new Addresses;
         $addresses->address = $request->address;
         $addresses->user_id = $request->user_id;
@@ -51,7 +46,6 @@ class AddressesController extends Controller
    public function list_all_addresses()
    {
      $addresses = Addresses::all();
-     //return view ('display_addresses_dropdown', compact('addresses'));
      return $addresses;
    }
    public function edit_address(Request $request)
@@ -59,7 +53,6 @@ class AddressesController extends Controller
      $addresses = Addresses::where('id', $request->address_id)->first();
      $areas = Area::all();
      $current_area = Area::where('id', $addresses->area_id)->first();
-     //return response($current_area);
      return view('edit_address', compact('addresses', 'areas', 'current_area'));
 
    }

@@ -25,7 +25,7 @@
 
       <div id = "app">
 
-      <insert-field>  </insert-field>
+      <insert-address>  </insert-address>
       </div>
 </div>
 

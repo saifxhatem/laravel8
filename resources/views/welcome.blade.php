@@ -12,9 +12,7 @@
     <title>{{env('APP_NAME')}}</title>
 </head>
 <body>
-    <div id="app">
-        <app></app>
-    </div>
+    Nothing interesting to see here
 
     <script src="{{ mix('js/app.js') }}"></script>
 </body>
