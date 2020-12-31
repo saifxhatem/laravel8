@@ -46,7 +46,10 @@
           });
         },
         alertAddress: function(address) {
-          alert('You chose address: ' + address);
+          let base_message = "You chose this address: ";
+          let full_message = base_message.concat(address);
+
+          alert(full_message);
         }
       }
     }

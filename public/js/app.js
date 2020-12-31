@@ -1990,7 +1990,9 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     alertAddress: function alertAddress(address) {
-      alert('You chose address: ' + address);
+      var base_message = "You chose this address: ";
+      var full_message = base_message.concat(address);
+      alert(full_message);
     }
   }
 });
