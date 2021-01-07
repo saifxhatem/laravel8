@@ -23,29 +23,12 @@
          </div>
       @endif
 
-  <div class="card">
-    <div class="card-header text-center font-weight-bold">
-      Choose your name to insert your address
-    </div>
-    <div class="card-body">
-      <form name="add-blog-post-form" id="add-blog-post-form" method="post" action="{{url('store-data')}}">
-       @csrf
-        <div class="form-group">
-          <label for="exampleInputEmail1">Address</label>
-          <input type="text" id="title" name="address" class="form-control">
-        </div>
-        <div class="form-group">
-      <label for="name">Users</label>
-      <select name= "user_id" class="form-control">
-        @foreach($users as $user)
-          <option value="{{$user->id}}">{{$user->id}} - {{$user->name}}</option>
-        @endforeach
-      </select>
-    </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
-      </form>
-    </div>
-  </div>
+      <div id = "app">
+
+      <insert-address>  </insert-address>
+      </div>
 </div>
+
+<script src = "{{ mix('js/app.js') }}"> </script>
 </body>
 </html>

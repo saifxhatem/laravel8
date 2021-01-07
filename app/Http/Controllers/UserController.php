@@ -8,10 +8,16 @@ use Exception;
 class UserController extends Controller
 
 {
-    public function index()
+    public function index() {
+      return view('display_users');
+
+    }
+
+    public function get_users()
     {
       $users = User::all();
-      return view('display_users', compact('users'));
+      return $users;
+
     }
 
 }
