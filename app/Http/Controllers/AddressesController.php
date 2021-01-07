@@ -14,6 +14,10 @@ class AddressesController extends Controller
     {
         return view ('display_addresses');
     }
+    public function router_test()
+    {
+        return view('display_addresses_by_id');
+    }
     public function store(Request $request)
     {
 
@@ -64,5 +68,9 @@ class AddressesController extends Controller
      $updated_address->update();
      return response("Address updated successfully!", 200);
    }
-
+   public function fetch_address_by_id($id)
+   {
+     $address = Addresses::where('id', $id)->first();
+     return $address;
+   }
 }

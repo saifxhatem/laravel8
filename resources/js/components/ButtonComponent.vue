@@ -1,6 +1,6 @@
 <template>
 
-  <button id = "custom-button" v-on:click="alert">{{button_title}}</button>
+  <button id = "custom-button" v-on:click="exec">{{button_title}}</button>
 
 </template>
 
@@ -21,14 +21,21 @@ export default {
     button_title: {
       type: String,
       default: "My Button"
+    },
+    data_object: {
+      type: Object,
+      default: null
     }
+
   },
 
   methods: {
-    alert: function (event) {
+    exec: function (event) {
       if (this.onClickButton)
-        this.onClickButton(this.alert_text);
-
+      {
+        if (this.data_object)
+        this.onClickButton(this.data_object);
+      }
     }
   }
 }

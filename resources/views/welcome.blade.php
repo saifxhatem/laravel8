@@ -12,7 +12,11 @@
     <title>{{env('APP_NAME')}}</title>
 </head>
 <body>
-    Nothing interesting to see here
+    <h1><center> Home <center></h1>
+    <div id= "app">
+    <router-link to="/list-addresses"><center>List of Addresses</center></router-link>
+    <router-view/>
+    </div>
 
     <script src="{{ mix('js/app.js') }}"></script>
 </body>

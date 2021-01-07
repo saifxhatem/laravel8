@@ -8,7 +8,8 @@
 
       <ul id="example-1">
         <li id = "li-styled" v-for="(address,index) in addresses" :key="index">
-          {{ address.address }} <alert-button :alert_text="address.address" :onClickButton="alertAddress" button_title="Alert Address"/>
+          {{ address.address }} <alert-button :onClickButton="redirectToAddress" :data_object="address" button_title="Edit Address"/>
+          <alert-button :onClickButton="fetchAddress" :data_object="address" button_title="Fetch Address"/>
         </li>
       </ul>
     </div>
@@ -25,16 +26,18 @@
         }
       },
       mounted() {
+
         this.loadAddresses();
       },
+
       methods: {
         loadAddresses: function () {
           //get Request
           //assign results
           //catch $errors
-          axios.get('/list-all-addresses')
+          axios.get('/list-addresses')
           .then((response) => {
-            //check existence of data before you assign
+            //check existence of data before assigning
             if (response.data)
               this.addresses = response.data;
             else
@@ -48,8 +51,21 @@
         alertAddress: function(address) {
           let base_message = "You chose this address: ";
           let full_message = base_message.concat(address);
-
           alert(full_message);
+        },
+
+        redirectToAddress: function(address_id)
+        {
+          let base_url = "/fetch-address-by-id/";
+          window.location.href = base_url.concat(address_id.id);
+        },
+        fetchAddress: function(address)
+        {
+          let address_id = address.id;
+          this.$router.push({ name: 'displayAddressByID', params: { address_id } })
+          .catch(function (error){
+            console.log(error);
+          })
         }
       }
     }

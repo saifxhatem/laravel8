@@ -24,8 +24,12 @@
       @endif
 
   <div id= "app">
-    <router-view></router-view>
-    <display-addresses> </display-addresses>
+    <router-link to="/foo">Go to Foo</router-link>
+    <router-link to="/bar">Go to Bar</router-link>
+    <router-link to="/fetchaddr">Get Address by ID</router-link>
+    <router-link to="/fetchaddr">Fetch Address 5;</router-link>
+    <router-view :address_id="5"></router-view>
+
   </div>
 </div>
 <script src = "{{ mix('js/app.js') }}"> </script>
