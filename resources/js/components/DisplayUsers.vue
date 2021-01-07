@@ -30,7 +30,6 @@
           //catch $errors
           axios.get('/list-users')
           .then((response) => {
-            console.log(response.data);
             if (response.data)
               this.users = response.data;
             else

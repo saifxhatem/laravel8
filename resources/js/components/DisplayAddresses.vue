@@ -48,17 +48,7 @@
             console.log(error);
           });
         },
-        alertAddress: function(address) {
-          let base_message = "You chose this address: ";
-          let full_message = base_message.concat(address);
-          alert(full_message);
-        },
-
-        redirectToAddress: function(address_id)
-        {
-          let base_url = "/fetch-address-by-id/";
-          window.location.href = base_url.concat(address_id.id);
-        },
+        
         fetchAddress: function(address)
         {
           let address_id = address.id;

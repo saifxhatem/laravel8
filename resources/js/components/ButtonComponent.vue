@@ -10,10 +10,6 @@
 export default {
 
   props: {
-    alert_text: {
-      type: String,
-      default: "Alert Text!"
-    },
     onClickButton: {
       type: Function,
       default: null

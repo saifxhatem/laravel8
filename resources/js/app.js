@@ -8,13 +8,9 @@ import DisplayAddresses from './components/DisplayAddresses.vue'
 
 Vue.use(VueRouter)
 
-const Foo = { template: '<div>foo</div>' }
-const Bar = { template: '<div>bar</div>' }
 
 
 const routes = [
-  { name : 'foo', path: '/foo', component: Foo },
-  { name: 'bar', path: '/bar', component: Bar },
   { name: 'displayAddressByID', path: '/fetchaddr', component: DisplayAddressByID, props: true},
   { name: 'displayAddresses', path: '/list-addresses', component: DisplayAddresses}
 ]

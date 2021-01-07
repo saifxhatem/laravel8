@@ -55,15 +55,12 @@ export default {
       }
     },
     
-    mounted() {
-        console.log('Component mounted.')
-    },
+    
 
     methods:
     {
       postData(e)
       {
-          console.log(this.formData);
           axios.post("store-data", this.formData)
           .then((result) => {
             console.log(result)

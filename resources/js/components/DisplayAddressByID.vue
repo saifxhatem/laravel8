@@ -41,9 +41,7 @@
         this.loadAddresses();
       },
 
-      created() {
-
-      },
+      
       methods: {
         loadAddresses: function () {
           //get Request

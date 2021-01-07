@@ -1964,10 +1964,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
-    alert_text: {
-      type: String,
-      "default": "Alert Text!"
-    },
     onClickButton: {
       type: Function,
       "default": null
@@ -2039,7 +2035,6 @@ __webpack_require__.r(__webpack_exports__);
   mounted: function mounted() {
     this.loadAddresses();
   },
-  created: function created() {},
   methods: {
     loadAddresses: function loadAddresses() {
       var _this = this;
@@ -2110,15 +2105,6 @@ __webpack_require__.r(__webpack_exports__);
         console.log(error);
       });
     },
-    alertAddress: function alertAddress(address) {
-      var base_message = "You chose this address: ";
-      var full_message = base_message.concat(address);
-      alert(full_message);
-    },
-    redirectToAddress: function redirectToAddress(address_id) {
-      var base_url = "/fetch-address-by-id/";
-      window.location.href = base_url.concat(address_id.id);
-    },
     fetchAddress: function fetchAddress(address) {
       var address_id = address.id;
       this.$router.push({
@@ -2175,7 +2161,6 @@ __webpack_require__.r(__webpack_exports__);
       //assign results
       //catch $errors
       axios.get('/list-users').then(function (response) {
-        console.log(response.data);
         if (response.data) _this.users = response.data;else console.log("Received bad data");
       })["catch"](function (error) {
         console.log(error);
@@ -2274,12 +2259,8 @@ __webpack_require__.r(__webpack_exports__);
       }
     };
   },
-  mounted: function mounted() {
-    console.log('Component mounted.');
-  },
   methods: {
     postData: function postData(e) {
-      console.log(this.formData);
       axios.post("store-data", this.formData).then(function (result) {
         console.log(result);
       });
@@ -54302,21 +54283,7 @@ window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.
 
 
 Vue.use(vue_router__WEBPACK_IMPORTED_MODULE_0__["default"]);
-var Foo = {
-  template: '<div>foo</div>'
-};
-var Bar = {
-  template: '<div>bar</div>'
-};
 var routes = [{
-  name: 'foo',
-  path: '/foo',
-  component: Foo
-}, {
-  name: 'bar',
-  path: '/bar',
-  component: Bar
-}, {
   name: 'displayAddressByID',
   path: '/fetchaddr',
   component: _components_DisplayAddressByID_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
