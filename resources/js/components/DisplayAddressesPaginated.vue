@@ -44,7 +44,7 @@ export default {
             //get Request
             //assign results
             //catch $errors
-            let self = this
+            
             if (direction == 'right') this.page_num++;
             else this.page_num--;
             axios.get('/fetch-user-addresses/' + this.user_id + '/?page=' + this.page_num)
@@ -55,10 +55,10 @@ export default {
                         this.addresses = response.data.data; //data.data because paginated eloquent returns a different object than a direct call
                     }
                 })
-                .catch(function(error) {
+                .catch((error) => {
                     if (error.response.status === 404) {
-                        self.show = true;
-                        self.err_msg = "User not found";
+                        this.show = true;
+                        this.err_msg = "User not found";
                     }
                 });
         },

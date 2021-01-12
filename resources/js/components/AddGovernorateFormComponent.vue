@@ -52,16 +52,16 @@ export default {
 
     methods: {
         postData(e) {
-            let self = this;
+            
             axios.post("add-new-gov", this.formData)
                 .then((result) => {
-                    self.show = false;
-                    self.success = true;
+                    this.show = false;
+                    this.success = true;
                 })
-                .catch(function(error) {
-                    self.show = true;
+                .catch((error) => {
+                    this.show = true;
                     if (error.response.status == 422)
-                        self.err_msg = error.response.data.errors.governorate_name[0];
+                        this.err_msg = error.response.data.errors.governorate_name[0];
                 });
         },
         validate_form(){

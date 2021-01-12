@@ -64,18 +64,18 @@ export default {
 
     methods: {
         postData(e) {
-            let self = this;
+            
             axios.post("store-data-registration", this.formData)
                 .then((result) => {
-                    self.user_id = result.data;
-                    this.$router.push({ name: 'home', params: { user_id: self.user_id } })
+                    this.user_id = result.data;
+                    this.$router.push({ name: 'home', params: { user_id: this.user_id } })
 
                 })
                 .catch(function(error) {
-                    self.show = true;
+                    this.show = true;
                     if (error.response.status == 422) {
 
-                        self.err_msg = "Email is already in use!"
+                        this.err_msg = "Email is already in use!"
                     }
                 });
 

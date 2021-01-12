@@ -65,22 +65,22 @@ export default {
 
     methods: {
         postData(e) {
-            let self = this;
+            
             axios.post("auth", this.formData)
                 .then((result) => {
                     if (result.status === 205) {
-                        self.show = true;
-                        self.err_msg = "Email or password are incorrect."
+                        this.show = true;
+                        this.err_msg = "Email or password are incorrect."
                     } else {
-                        self.show = false;
-                        self.errors = "";
-                        self.user_id = result.data;
-                        this.$router.push({ name: 'home', params: { user_id: self.user_id } })
+                        this.show = false;
+                        this.errors = "";
+                        this.user_id = result.data;
+                        this.$router.push({ name: 'home', params: { user_id: this.user_id } })
                     }
 
                 })
-                .catch(function(error) {
-                    self.errors = error.response.data.errors;
+                .catch((error) => {
+                    this.errors = error.response.data.errors;
 
                 });
 

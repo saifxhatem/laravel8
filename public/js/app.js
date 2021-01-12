@@ -2018,10 +2018,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   mounted: function mounted() {
-    this.formData.user_id = this.$route.params.user_id;
     this.load_governorates();
   },
   data: function data() {
@@ -2041,39 +2039,43 @@ __webpack_require__.r(__webpack_exports__);
       show: false,
       err_msg: "",
       all_governorates: null,
-      selected_gov: null,
+      //not empty
       areas_in_selected_gov: null,
       show_areas_form: null,
-      selected_area: null,
       success: null
     };
   },
   methods: {
     postData: function postData(e) {
-      var self = this;
+      var _this = this;
+
       axios.post("store-data", this.formData).then(function (result) {
-        self.success = true;
+        _this.success = true;
+
+        _this.clear_form_variables();
       })["catch"](function (error) {});
     },
     load_governorates: function load_governorates() {
-      var self = this;
+      var _this2 = this;
+
       axios.get("list-all-govs").then(function (result) {
-        self.all_governorates = result.data;
+        _this2.all_governorates = result.data;
       });
     },
     chosen_governorate: function chosen_governorate() {
-      this.success = false;
-      this.formData.area_id = null;
-      var self = this;
+      var _this3 = this;
+
+      this.success = false; //this.formData.area_id = null;
+
       axios.get("get-areas-in-gov/" + this.formData.governorate_id).then(function (result) {
         if (result.data.length > 0) {
-          self.show = false;
-          self.areas_in_selected_gov = result.data;
-          self.show_areas_form = true;
+          _this3.show = false;
+          _this3.areas_in_selected_gov = result.data;
+          _this3.show_areas_form = true;
         } else {
-          self.show = true;
-          self.err_msg = "This governorate has no areas, please choose a different one or add a new area";
-          self.areas_in_selected_gov = null;
+          _this3.show = true;
+          _this3.err_msg = "This governorate has no areas, please choose a different one or add a new area";
+          _this3.areas_in_selected_gov = null;
         }
       });
     },
@@ -2087,7 +2089,9 @@ __webpack_require__.r(__webpack_exports__);
     },
     validate_form: function validate_form() {
       //clear flags from previous runs
-      this.clear_validation_flags();
+      this.clear_validation_flags(); //bind user
+
+      this.formData.user_id = this.$route.params.user_id;
 
       if (this.formData.user_id === null || this.formData.user_id === '') {
         this.show = true;
@@ -2113,7 +2117,7 @@ __webpack_require__.r(__webpack_exports__);
         this.validation_errors.area_id_failed = true;
       }
 
-      if (!this.validation_errors.user_id_failed && !this.validation_errors.address_failed && !this.validation_errors.governorate_failed && !this.validation_errors.area_failed) {
+      if (!this.validation_errors.user_id_failed && !this.validation_errors.address_failed && !this.validation_errors.governorate_failed && !this.validation_errors.area_id_failed) {
         this.show = false;
         this.err_msg = "";
         this.postData();
@@ -2121,10 +2125,19 @@ __webpack_require__.r(__webpack_exports__);
     },
     clear_validation_flags: function clear_validation_flags() {
       this.err_msg = "";
+      this.show = false;
+      this.success = false;
       this.validation_errors.user_id_failed = null;
       this.validation_errors.address_failed = null;
       this.validation_errors.governorate_failed = null;
-      this.validation_errors.area_failed = null;
+      this.validation_errors.area_id_failed = null;
+    },
+    clear_form_variables: function clear_form_variables() {
+      this.formData.user_id = null;
+      this.formData.address = null;
+      this.formData.governorate_id = null;
+      this.formData.area_id = null;
+      this.areas_in_selected_gov = null;
     }
   }
 });
@@ -2189,13 +2202,14 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     postData: function postData(e) {
-      var self = this;
+      var _this = this;
+
       axios.post("add-new-area", this.formData).then(function (result) {
-        self.show = false;
-        self.success = true;
+        _this.show = false;
+        _this.success = true;
       })["catch"](function (error) {
-        self.show = true;
-        if (error.response.status == 422) self.err_msg = error.response.data.errors.area_name[0];
+        _this.show = true;
+        if (error.response.status == 422) _this.err_msg = error.response.data.errors.area_name[0];
       });
     },
     validate_form: function validate_form() {
@@ -2283,13 +2297,14 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     postData: function postData(e) {
-      var self = this;
+      var _this = this;
+
       axios.post("add-new-gov", this.formData).then(function (result) {
-        self.show = false;
-        self.success = true;
+        _this.show = false;
+        _this.success = true;
       })["catch"](function (error) {
-        self.show = true;
-        if (error.response.status == 422) self.err_msg = error.response.data.errors.governorate_name[0];
+        _this.show = true;
+        if (error.response.status == 422) _this.err_msg = error.response.data.errors.governorate_name[0];
       });
     },
     validate_form: function validate_form() {
@@ -2476,7 +2491,6 @@ __webpack_require__.r(__webpack_exports__);
       //get Request
       //assign results
       //catch $errors
-      var self = this;
       if (direction == 'right') this.page_num++;else this.page_num--;
       axios.get('/fetch-user-addresses/' + this.user_id + '/?page=' + this.page_num).then(function (response) {
         //check existence of data before assigning
@@ -2486,8 +2500,8 @@ __webpack_require__.r(__webpack_exports__);
         }
       })["catch"](function (error) {
         if (error.response.status === 404) {
-          self.show = true;
-          self.err_msg = "User not found";
+          _this.show = true;
+          _this.err_msg = "User not found";
         }
       });
     },
@@ -2785,25 +2799,24 @@ __webpack_require__.r(__webpack_exports__);
     postData: function postData(e) {
       var _this = this;
 
-      var self = this;
       axios.post("auth", this.formData).then(function (result) {
         if (result.status === 205) {
-          self.show = true;
-          self.err_msg = "Email or password are incorrect.";
+          _this.show = true;
+          _this.err_msg = "Email or password are incorrect.";
         } else {
-          self.show = false;
-          self.errors = "";
-          self.user_id = result.data;
+          _this.show = false;
+          _this.errors = "";
+          _this.user_id = result.data;
 
           _this.$router.push({
             name: 'home',
             params: {
-              user_id: self.user_id
+              user_id: _this.user_id
             }
           });
         }
       })["catch"](function (error) {
-        self.errors = error.response.data.errors;
+        _this.errors = error.response.data.errors;
       });
     },
     validate_form: function validate_form() {
@@ -2906,21 +2919,20 @@ __webpack_require__.r(__webpack_exports__);
     postData: function postData(e) {
       var _this = this;
 
-      var self = this;
       axios.post("store-data-registration", this.formData).then(function (result) {
-        self.user_id = result.data;
+        _this.user_id = result.data;
 
         _this.$router.push({
           name: 'home',
           params: {
-            user_id: self.user_id
+            user_id: _this.user_id
           }
         });
       })["catch"](function (error) {
-        self.show = true;
+        this.show = true;
 
         if (error.response.status == 422) {
-          self.err_msg = "Email is already in use!";
+          this.err_msg = "Email is already in use!";
         }
       });
     },
@@ -39934,16 +39946,12 @@ var render = function() {
                       ) {
                         return _c(
                           "option",
-                          {
-                            key: index,
-                            attrs: { required: "" },
-                            domProps: { value: governorate.id }
-                          },
+                          { key: index, domProps: { value: governorate.id } },
                           [
                             _vm._v(
-                              "\n                                    " +
+                              "\n                                        " +
                                 _vm._s(governorate.name) +
-                                "\n                                  "
+                                "\n                                      "
                             )
                           ]
                         )
@@ -39953,7 +39961,7 @@ var render = function() {
                     _vm._v(" "),
                     _c("br"),
                     _vm._v(" "),
-                    _vm.areas_in_selected_gov
+                    _vm.show_areas_form
                       ? _c("div", [
                           _c(
                             "select",
@@ -40003,16 +40011,12 @@ var render = function() {
                             ) {
                               return _c(
                                 "option",
-                                {
-                                  key: index,
-                                  attrs: { required: "" },
-                                  domProps: { value: area.id }
-                                },
+                                { key: index, domProps: { value: area.id } },
                                 [
                                   _vm._v(
-                                    "\n                                    " +
+                                    "\n                                        " +
                                       _vm._s(area.name) +
-                                      "\n                                  "
+                                      "\n                                      "
                                   )
                                 ]
                               )
@@ -40041,7 +40045,7 @@ var render = function() {
                                 },
                                 [
                                   _vm._v(
-                                    "\n                                    Add New Area\n                                  "
+                                    "\n                                        Add New Area\n                                      "
                                   )
                                 ]
                               )
@@ -40060,7 +40064,7 @@ var render = function() {
                         },
                         [
                           _vm._v(
-                            "\n                                    Add Address\n                                  "
+                            "\n                                        Add Address\n                                      "
                           )
                         ]
                       )

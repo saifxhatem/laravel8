@@ -17,41 +17,40 @@
                                 </div>
     
                                 <select v-model="formData.governorate_id" @change="chosen_governorate" name="governorate" id="governorate" v-bind:class="{ 'is-invalid' : validation_errors.governorate_failed}" class="form-control" tabindex="12">
-                                      <option
-                                        v-for="(governorate, index) in all_governorates"
-                                        :key="index"
-                                        :value="governorate.id"
-                                        required
-                                      >
-                                        {{ governorate.name }}
-                                      </option>
-                                    </select>
+                                          <option
+                                            v-for="(governorate, index) in all_governorates"
+                                            :key="index"
+                                            :value="governorate.id"
+                                          >
+                                            {{ governorate.name }}
+                                          </option>
+                                        </select>
                                 <br>
-                                <div v-if="areas_in_selected_gov">
+                                <div v-if="show_areas_form">
                                     <select v-model="formData.area_id" name="areas" id="areas" class="form-control" v-bind:class="{ 'is-invalid' : validation_errors.area_id_failed}" tabindex="12">
-                                      <option
-                                        v-for="(area, index) in areas_in_selected_gov"
-                                        :key="index"
-                                        :value="area.id"
-                                        required
-                                      >
-                                        {{ area.name }}
-                                      </option>
-                                      
-                                    </select>
+                                          <option
+                                            v-for="(area, index) in areas_in_selected_gov"
+                                            :key="index"
+                                            :value="area.id"
+                                            
+                                          >
+                                            {{ area.name }}
+                                          </option>
+                                          
+                                        </select>
                                 </div>
                                 <div v-if="formData.governorate_id">
                                     <center>
                                         Can't find your area? <br> <button v-on:click="add_area" type="button" class="btn btn-primary">
-                                        Add New Area
-                                      </button>
+                                            Add New Area
+                                          </button>
                                     </center>
                                 </div>
     
                                 <center>
                                     <button type="submit" class="btn btn-primary">
-                                        Add Address
-                                      </button>
+                                            Add Address
+                                          </button>
                                 </center>
                             </form>
                         </div>
@@ -67,7 +66,7 @@ export default {
 
 
     mounted() {
-        this.formData.user_id = this.$route.params.user_id;
+
         this.load_governorates()
     },
 
@@ -87,11 +86,9 @@ export default {
             },
             show: false,
             err_msg: "",
-            all_governorates: null,
-            selected_gov: null,
+            all_governorates: null, //not empty
             areas_in_selected_gov: null,
             show_areas_form: null,
-            selected_area: null,
             success: null
         }
 
@@ -102,47 +99,51 @@ export default {
 
     methods: {
         postData(e) {
-            let self = this;            
+            
             axios.post("store-data", this.formData)
                 .then((result) => {
-                    self.success = true;
+                    this.success = true;
+                    this.clear_form_variables();
                 })
-                .catch(function(error) {
+                .catch((error) => {
                 });
         },
         load_governorates() {
-            let self = this;
+
             axios.get("list-all-govs")
                 .then((result) => {
-                    self.all_governorates = result.data;
+                    this.all_governorates = result.data;
                 })
         },
         chosen_governorate() {
             this.success = false;
-            this.formData.area_id = null;
-            let self = this;
+            //this.formData.area_id = null;
+
             axios.get("get-areas-in-gov/" + this.formData.governorate_id)
                 .then((result) => {
                     if (result.data.length > 0) {
-                        self.show = false;
-                        self.areas_in_selected_gov = result.data;
-                        self.show_areas_form = true;
+                        this.show = false;
+                        this.areas_in_selected_gov = result.data;
+                        this.show_areas_form = true;
                     } else {
-                        self.show = true;
-                        self.err_msg = "This governorate has no areas, please choose a different one or add a new area"
-                        self.areas_in_selected_gov = null;
+                        this.show = true;
+                        this.err_msg = "This governorate has no areas, please choose a different one or add a new area"
+                        this.areas_in_selected_gov = null;
 
                     }
                 })
 
 
         },
-        add_area(){
-            this.$router.push({ name: 'add-area', params: { gov_id : this.formData.governorate_id }}) 
+        add_area() {
+            this.$router.push({ name: 'add-area', params: { gov_id: this.formData.governorate_id } })
         },
         validate_form() {
             //clear flags from previous runs
             this.clear_validation_flags();
+            //bind user
+            this.formData.user_id = this.$route.params.user_id;
+
             if (this.formData.user_id === null || this.formData.user_id === '') {
                 this.show = true;
                 this.err_msg += "User ID not assigned"
@@ -155,7 +156,6 @@ export default {
             }
             if (this.formData.governorate_id === null || this.formData.governorate_id === '') {
                 this.show = true;
-                
                 this.err_msg += " No governorate selected."
                 this.validation_errors.governorate_failed = true;
             }
@@ -164,7 +164,7 @@ export default {
                 this.err_msg += " No area selected."
                 this.validation_errors.area_id_failed = true;
             }
-            if (!this.validation_errors.user_id_failed && !this.validation_errors.address_failed && !this.validation_errors.governorate_failed && !this.validation_errors.area_failed) {
+            if (!this.validation_errors.user_id_failed && !this.validation_errors.address_failed && !this.validation_errors.governorate_failed && !this.validation_errors.area_id_failed) {
                 this.show = false;
                 this.err_msg = "";
                 this.postData()
@@ -172,10 +172,19 @@ export default {
         },
         clear_validation_flags() {
             this.err_msg = "";
+            this.show = false;
+            this.success = false;
             this.validation_errors.user_id_failed = null;
             this.validation_errors.address_failed = null;
             this.validation_errors.governorate_failed = null;
-            this.validation_errors.area_failed = null;
+            this.validation_errors.area_id_failed = null;
+        },
+        clear_form_variables() {
+            this.formData.user_id = null;
+            this.formData.address = null;
+            this.formData.governorate_id = null;
+            this.formData.area_id = null;
+            this.areas_in_selected_gov = null;
         }
     }
 }
