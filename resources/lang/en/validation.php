@@ -130,8 +130,13 @@ return [
     */
 
     'custom' => [
-        'attribute-name' => [
-            'rule-name' => 'custom-message',
+        'user_password' => [
+            'required' => 'You need to fill out your password.',
+        
+        ],
+        'user_email' => [
+            'required' => 'You need to fill out your email.',
+        
         ],
     ],
 

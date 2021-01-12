@@ -15,17 +15,16 @@ class RegistrationController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-          'name' => 'required|max:255',
-          'password' => 'required|max:255',
-          'email' => 'required|max:255|unique:App\Models\User,email',
+          'user_name' => 'required|max:255',
+          'user_password' => 'required|max:255',
+          'user_email' => 'required|max:255|unique:App\Models\User,email',
         ]);
         $user = new User;
-        $user->name = $request->name;
-        $user->password = $request->password;
-        $user->email = $request->email;
+        $user->name = $request->user_name;
+        $user->password = $request->user_password;
+        $user->email = $request->user_email;
 
         $user->save();
-        return redirect('registration')
-            ->with('status', 'Registration Successful');
+        return response()->json($user->id);
     }
 }

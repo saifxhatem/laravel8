@@ -10,12 +10,20 @@
     <link rel="stylesheet" href="{{ mix('css/app.css') }}" />
 
     <title>{{env('APP_NAME')}}</title>
+
+
 </head>
 <body>
-    <h1><center> Home <center></h1>
+
     <div id= "app">
-    <router-link to="/list-addresses"><center>List of Addresses</center></router-link>
-    <router-view/>
+        <div class="routing" v-if="this.$route.path == '/'">
+            <router-link to="/register"><center>Register</center></router-link>
+            <router-link to="/login"><center>Login</center></router-link>
+            <router-link to="/home"><center>Home</center></router-link>
+            <router-link to="/addresses"><center>Addresses</center></router-link>
+            <router-link to="/governorates"><center>Governorates</center></router-link>
+        </div>
+    <router-view> </router-view>
     </div>
 
     <script src="{{ mix('js/app.js') }}"></script>
