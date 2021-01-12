@@ -1,67 +1,60 @@
 <template>
-  <div class="card" id = "card-styled">
-    <div class="card-header text-center font-weight-bold">
-      <vue-header :title="this.title"/>
-
-
-      <br />
-
-      <ul id="example-1">
-        <p id = "li-styled">
-          
-          Address ID: {{ this.addresses.id }}<br>
-          Area ID: {{ this.addresses.area_id }}<br>
-          Address: {{ this.addresses.address }}<br>
-
-
-        </p>
-      </ul>
+    <div class="card" id="card-styled">
+        <div class="card-header text-center font-weight-bold">
+            <vue-header :title="this.title" />
+    
+    
+            <br />
+    
+            <ul id="example-1">
+                <p id="li-styled">
+    
+                    Address ID: {{ this.addresses.id }}<br> Area ID: {{ this.addresses.area_id }}<br> Address: {{ this.addresses.address }}<br>
+    
+    
+                </p>
+            </ul>
+        </div>
     </div>
-  </div>
 </template>
 
 <script>
-
-    export default {
-      props: {
+export default {
+    props: {
         address_id: {
-          type: Number,
-          default: 1
+            type: Number,
+            default: 1
         }
-      },
+    },
 
-      data: function() {
+    data: function() {
         return {
-          addresses: [],
-          title: "Address Info:"
+            addresses: [],
+            title: "Address Info:"
         }
-      },
+    },
 
-      mounted() {
+    mounted() {
         this.loadAddresses();
-      },
+    },
 
-      
-      methods: {
-        loadAddresses: function () {
-          //get Request
-          //assign results
-          //catch $errors
-          axios.get('/fetch-address-by-id/' + this.address_id)
-          .then((response) => {
-            //check existence of data before assigning
-            if (response.data)
-              this.addresses = response.data;
-            else
-              console.log("Retrieved bad data.")
-          })
-          .catch(function (error) {
-            console.log(error);
-          });
+
+    methods: {
+        loadAddresses: function() {
+            //get Request
+            //assign results
+            //catch $errors
+            axios.get('/fetch-address-by-id/' + this.address_id)
+                .then((response) => {
+                    //check existence of data before assigning
+                    if (response.data)
+                        this.addresses = response.data;
+                })
+                .catch(function(error) {
+                });
         },
-      }
     }
-
+}
 </script>
 
 <style scoped>

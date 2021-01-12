@@ -1,24 +1,20 @@
 <template>
-
-  <div class ="header">
-    <label> {{title}} </label>
-  </div>
-
+    <div class="header">
+        <label> {{title}} </label>
+    </div>
 </template>
 
 
 <script>
-
 export default {
-  props: {
-    title: {
-      type: String,
-      default: "My Title"
-    }
-  },
+    props: {
+        title: {
+            type: String,
+            default: "My Title"
+        }
+    },
 
 }
-
 </script>
 
 <style scoped>
