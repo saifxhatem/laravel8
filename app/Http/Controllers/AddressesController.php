@@ -27,9 +27,6 @@ class AddressesController extends Controller
         $addresses->user_id = $request->user_id;
         $addresses->area_id = $request->area_id;
         $addresses->save();
-        // return redirect('insert-addresses')
-        //     ->with('status', 'Insertion Successful');
-        
     }
     public function index_get()
     {
@@ -43,7 +40,6 @@ class AddressesController extends Controller
         $address_object = Addresses::where('user_id', $request->user_id)
             ->get();
 
-        //return view('display_addresses', ['addresses' => $address_object]);
         return $address_object;
 
     }
